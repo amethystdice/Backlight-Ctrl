@@ -16,4 +16,5 @@ void exit_with_err_num(const char *s,int err){
 
 void exit_with_err_msg(const char *s){
     fprintf(stderr, "%s\n",s);
+    exit(EXIT_FAILURE);
 }

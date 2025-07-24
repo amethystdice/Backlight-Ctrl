@@ -12,7 +12,7 @@
 int main(int argc,char** argv){
     
     if(getuid()!=0)
-        exit_with_err_msg("brightness-control: This tool needs admin privileges, make sure to run \"sudo brightness-control\"\n");
+        exit_with_err_msg("brightness-control: This tool needs admin privileges\nmake sure to run \"sudo brightness-control\"\n");
     // check arguments
 
     if(argc<1 || argc>2){
