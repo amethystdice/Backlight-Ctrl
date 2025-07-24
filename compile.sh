@@ -1,0 +1,1 @@
+gcc -o i-brightness-control i-brightness-control.c error-handler.c
