@@ -12,7 +12,7 @@
 int main(int argc,char** argv){
     
     if(getuid()!=0)
-        exit_with_err_msg("brightness-control: This tool needs admin privileges\nmake sure to run \"sudo brightness-control\"\n");
+        exit_with_err_msg("brightness-control: This tool needs admin privileges\nmake sure to run \"sudo brightness-control\"");
     // check arguments
 
     if(argc<1 || argc>2){
@@ -79,7 +79,7 @@ int main(int argc,char** argv){
     }
   
     //replace file content
-    if(truncate(brightness_file_path,0)==-1)
+    if((truncate(brightness_file_path,0))==-1)
         exit_with_sys_err("truncate()");
 
     if(fprintf(brightness_file, "%ld",current_brightness)<0)
