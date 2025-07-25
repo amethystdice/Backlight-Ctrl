@@ -1,1 +1,2 @@
-gcc -o i-brightness-control.out i-brightness-control.c error-handler.c
+#!/bin/bash
+gcc -o i-brightness-control.out main.c error-handler.c
