@@ -4,7 +4,7 @@ This tool modifies basic system components and it may cause damage if used impro
 
 Also the brightness resets after each boot, this is by design and kind of a safety feature
 
-# Intel-Brightness-Control
+# About
 This tool will change the brightness of the screen via command line.
 It only works if your device uses the "**intel backlight**".
 
