@@ -6,22 +6,32 @@ CFLAGS = -Wall -Wextra -g
 OBJDIR = obj/
 BINDIR = bin/
 SRCDIR = src/
+INSTALLDIR = /usr/local/bin/
 
 # Output executable
-TARGET = $(BINDIR)i-brightness-control
+EXECUTABLE = brightness-control
+TARGET = $(BINDIR)$(EXECUTABLE)
 
 # Source and object files
 SRCS = $(wildcard $(SRCDIR)*.c)
 OBJS = $(patsubst $(SRCDIR)%.c,$(OBJDIR)%.o,$(SRCS))
 
-# Default target
-all: $(OBJDIR) $(TARGET)
+# Possible targets
+all: $(OBJDIR) $(BINDIR) $(TARGET)
+
+install: all 
+	sudo cp $(TARGET) $(INSTALLDIR)
+
+uninstall:
+	sudo rm $(INSTALLDIR)$(EXECUTABLE)
 
 # Ensure object directory exists
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
+
+# Ensure binary directory exists
+$(BINDIR):
 	mkdir -p $(BINDIR)
-	mkdir -p $(SRCDIR)
 
 # Link object files into the final executable
 $(TARGET): $(OBJS)
@@ -37,5 +47,5 @@ clean:
 	rmdir  $(OBJDIR)
 	rmdir  $(BINDIR)
 
-.PHONY: all clean
+.PHONY: all clean install uninstall
 

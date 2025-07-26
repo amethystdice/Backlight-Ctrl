@@ -10,15 +10,31 @@
 #define BUFFER_SIZE 10
 #define BRIGHTNESS_FILE_PATH "/sys/class/backlight/intel_backlight/brightness"
 #define MAX_BRIGHTNESS_FILE_PATH "/sys/class/backlight/intel_backlight/max_brightness"
+#define GITHUB_LINK "\033]8;;https://github.com/amethystdice/intel-backlight-control\033\\\033[34mgithub\033[0m\033]8;;\033\\"
+
 
 int main(int argc,char** argv){
-    
+
+    // check if the user has run the program as "sudo"
     if(getuid()!=0)
         exit_with_err_msg("brightness-control: This tool needs admin privileges\nmake sure to run \"sudo brightness-control\"");
+    
+    // check if the program supports the users computer
+
+    if(access(BRIGHTNESS_FILE_PATH,R_OK)!=0 || true){
+        fprintf(stderr, 
+            "It looks like this program doesn't support your laptop!\n"
+            "Make sure that your devices uses `intel backlight'.\n"
+            "If it does and this message still appears make sure to report this bug on %s\n\n"
+            "path to the intel-backlight directory: %s\n"
+            ,GITHUB_LINK,BRIGHTNESS_FILE_PATH);
+        exit(EXIT_FAILURE);
+    }
+
     // check arguments
 
     if(argc>2){
-        if(fprintf(stderr,"i-brightness-control: Number of arguments unsupported\nTry 'i-brightness-control --help' for more information\n")<0)
+        if(fprintf(stderr,"brightness-control: Number of arguments unsupported\nTry 'i-brightness-control --help' for more information\n")<0)
             exit_with_sys_err("fprintf()");
         exit(EXIT_FAILURE);
     }
@@ -26,10 +42,10 @@ int main(int argc,char** argv){
     if(argc==2)
         if((!strncmp(argv[1], "-h", 2)) || (!strncmp(argv[1], "--help", 6))){
             if(printf(
-            "i-brightness-control: Wrong number of arguments\n"
-            "Usage: i-brightness-control\n"
-            "or   : i-brightness-control [BRIGHTNESS VALUE]\n"
-            "or   : i-brightness-control max/min\n"    
+            "brightness-control: Wrong number of arguments\n"
+            "Usage: brightness-control\n"
+            "or   : brightness-control [BRIGHTNESS VALUE]\n"
+            "or   : brightness-control max/min\n"    
             )<0)
                 exit_with_sys_err("printf()");
         }
@@ -45,11 +61,11 @@ int main(int argc,char** argv){
     if( (brightness_file==NULL) || (max_brightness_file==NULL) ){
         fprintf(
             stderr,
-            "the files responsible for brightness control couldn't be found, make sure that your devices uses \"intel backlight\"\n"
+            "Can't access the files responsible for brightness\n"
             "fopen(): couldn't open %s\n"
             "fopen(): couldn't open %s\n"
             ,brightness_file_path,max_brightness_file_path);
-        exit(EXIT_FAILURE);
+        exit(EXIT_SUCCESS);
     }
 
     //load previous values and max possible brightness
@@ -96,9 +112,6 @@ int main(int argc,char** argv){
                 exit_with_sys_err("printf()");
         }
     }
-  
-    //replace file content
-
     
     //close files
     if(fclose(brightness_file)==EOF)

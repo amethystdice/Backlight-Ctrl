@@ -2,17 +2,47 @@
 Do not install or try this tool, it's a work in progress and most of all it's my first project so be warned.
 This tool modifies basic system components and it may cause damage if used improprely or even proprely.
 
-## Usage
+# Intel-Brightness-Control
 This tool will change the brightness of the screen via command line.
-It only works if your device uses the "intel backlight".
+It only works if your device uses the "**intel backlight**".
 
-run the command following command to change the brightness:
+## Installation
+
+First you will need to compile this program. To do that you need to install **gcc** and **make**.
+If your distribution uses a package manager different that **apt** like **dnf** , just replace it in the following command:
+
 ```bash
-i-brightness-control
+sudo apt install gcc make 
 ```
 
-you can also run the command adding an argument for the brightness value to change it automatically
+now you can install the program
+
 ```bash
-i-brightness-control 0 #this command will """turn off""" the screen.
+make install # compile and install
 ```
 
+You can now run one of the following commands:
+```bash
+brightness-control      # check the current brightness and it's max and min setting 
+brightness-control 125  # change the brightness to a value
+brightness-control min  #this command will """turn off""" the screen.
+brightness-control max  #this command will make the screen the brightest it can go
+```
+
+## How to uninstall
+
+If you wish to uninstall the program you just need to run:
+
+```bash
+make uninstall
+```
+
+## Other use cases
+
+If you wish to use the program without installing it into your system you can run this command and access the executable directly instide the bin/ directory.
+
+```bash
+make #compile the program
+```
+```bash
+./bin/brightness-control # run the program from the main directory
