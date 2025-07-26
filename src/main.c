@@ -84,16 +84,18 @@ int main(int argc,char** argv){
                 skip_print=true;
             }
         }
+        
+        if(skip_print==false){
+            if((truncate(brightness_file_path,0))==-1)
+                exit_with_sys_err("truncate()");
+        
+            if(fprintf(brightness_file, "%ld",current_brightness)<0)
+                exit_with_sys_err("fprintf()");
+        }
     }
   
     //replace file content
-    if(skip_print==false){
-        if((truncate(brightness_file_path,0))==-1)
-            exit_with_sys_err("truncate()");
-    
-        if(fprintf(brightness_file, "%ld",current_brightness)<0)
-            exit_with_sys_err("fprintf()");
-    }
+
     
     //close files
     if(fclose(brightness_file)==EOF)
