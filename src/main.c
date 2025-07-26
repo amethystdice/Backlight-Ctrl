@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <inttypes.h>
+#include <stdbool.h>
+#include <string.h>
 
 #include "../lib/error-handler.h"
 
@@ -15,15 +17,22 @@ int main(int argc,char** argv){
         exit_with_err_msg("brightness-control: This tool needs admin privileges\nmake sure to run \"sudo brightness-control\"");
     // check arguments
 
-    if(argc<1 || argc>2){
-        fprintf(stderr,
-        "brightness-control: Wrong number of arguments\n"
-        "Usage: brightness-control\n"
-        "or   : brightness-control [BRIGHTNESS VALUE]\n"
-        );
+    if(argc>2){
+        if(fprintf(stderr,"i-brightness-control: Number of arguments unsupported\nTry 'i-brightness-control --help' for more information\n")<0)
+            exit_with_sys_err("fprintf()");
         exit(EXIT_FAILURE);
     }
     
+    if((!strncmp(argv[1], "-h", 2)) || (!strncmp(argv[1], "--help", 6))){
+        if(printf(
+        "i-brightness-control: Wrong number of arguments\n"
+        "Usage: i-brightness-control\n"
+        "or   : i-brightness-control [BRIGHTNESS VALUE]\n"
+        "or   : i-brightness-control max/min\n"    
+        )<0)
+            exit_with_sys_err("printf()");
+    }
+
     //open brightness and max brightness files
     
     char* brightness_file_path = BRIGHTNESS_FILE_PATH; 
@@ -53,37 +62,37 @@ int main(int argc,char** argv){
         exit_with_sys_err("fscanf()");
     
     long current_brightness;
+    bool skip_print=false;
 
     if(argc==1){ // value from command line
-        if(printf("Current screen brightness value: %u\nChoose a new value between 0 and %u\nNew value: ",previous_brightness_value,max_brightness)<0)
+        if(printf("Current screen brightness: %u\nBrightness range ( 0 -> %u )\n",previous_brightness_value,max_brightness)<0)
             exit_with_sys_err("printf()");
-        char buffer[BUFFER_SIZE];
-        if(fgets(buffer, BUFFER_SIZE,stdin)==NULL)
-            exit_with_sys_err("fgets()");
-
-        current_brightness = atol(buffer);
-        while( (current_brightness<0) || (current_brightness>max_brightness)){
-            if(fprintf(stderr, "brightness value outside permitted range(0-%u)\nNew value: ",max_brightness)<0)
-                exit_with_sys_err("fprintf()");
-            
-            if(fgets(buffer, BUFFER_SIZE,stdin)==NULL)
-                exit_with_sys_err("fgets()");
-        }
     }
     else{ // value from argument
-        current_brightness = atol(argv[1]);
-        if(current_brightness<0 || current_brightness>max_brightness){
-            if(fprintf(stderr, "Brightness out of the permitted range (0-%u)\n",max_brightness)<0)
-                exit_with_sys_err("fprintf()");
+        if((!strncmp(argv[1], "max", 3)) || (!strncmp(argv[1], "MAX", 3))){
+            current_brightness=max_brightness;
+        }
+        else
+        if ((!strncmp(argv[1], "min", 3)) || (!strncmp(argv[1], "MIN", 3)))
+            current_brightness=0;
+        else{
+            current_brightness=atol(argv[1]);
+            if((current_brightness<0) || (current_brightness>max_brightness)){
+                if(fprintf(stderr, "Brightness out of the permitted range (0-%u)\n",max_brightness)<0)
+                    exit_with_sys_err("fprintf()");
+                skip_print=true;
+            }
         }
     }
   
     //replace file content
-    if((truncate(brightness_file_path,0))==-1)
-        exit_with_sys_err("truncate()");
-
-    if(fprintf(brightness_file, "%ld",current_brightness)<0)
-        exit_with_sys_err("truncate()");
+    if(skip_print==false){
+        if((truncate(brightness_file_path,0))==-1)
+            exit_with_sys_err("truncate()");
+    
+        if(fprintf(brightness_file, "%ld",current_brightness)<0)
+            exit_with_sys_err("fprintf()");
+    }
     
     //close files
     if(fclose(brightness_file)==EOF)
