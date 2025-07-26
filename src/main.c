@@ -23,7 +23,7 @@ int main(int argc,char** argv){
         exit(EXIT_FAILURE);
     }
     
-    if(argc==1)
+    if(argc==2)
         if((!strncmp(argv[1], "-h", 2)) || (!strncmp(argv[1], "--help", 6))){
             if(printf(
             "i-brightness-control: Wrong number of arguments\n"
