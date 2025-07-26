@@ -23,15 +23,16 @@ int main(int argc,char** argv){
         exit(EXIT_FAILURE);
     }
     
-    if((!strncmp(argv[1], "-h", 2)) || (!strncmp(argv[1], "--help", 6))){
-        if(printf(
-        "i-brightness-control: Wrong number of arguments\n"
-        "Usage: i-brightness-control\n"
-        "or   : i-brightness-control [BRIGHTNESS VALUE]\n"
-        "or   : i-brightness-control max/min\n"    
-        )<0)
-            exit_with_sys_err("printf()");
-    }
+    if(argc==1)
+        if((!strncmp(argv[1], "-h", 2)) || (!strncmp(argv[1], "--help", 6))){
+            if(printf(
+            "i-brightness-control: Wrong number of arguments\n"
+            "Usage: i-brightness-control\n"
+            "or   : i-brightness-control [BRIGHTNESS VALUE]\n"
+            "or   : i-brightness-control max/min\n"    
+            )<0)
+                exit_with_sys_err("printf()");
+        }
 
     //open brightness and max brightness files
     
