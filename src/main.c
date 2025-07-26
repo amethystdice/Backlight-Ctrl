@@ -21,7 +21,7 @@ int main(int argc,char** argv){
     
     // check if the program supports the users computer
 
-    if(access(BRIGHTNESS_FILE_PATH,R_OK)!=0 || true){
+    if(access(BRIGHTNESS_FILE_PATH,R_OK)!=0){
         fprintf(stderr, 
             "It looks like this program doesn't support your laptop!\n"
             "Make sure that your devices uses `intel backlight'.\n"
