@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <inttypes.h>
 
-#include "error-handler.h"
+#include "../lib/error-handler.h"
 
 #define BUFFER_SIZE 10
 #define BRIGHTNESS_FILE_PATH "/sys/class/backlight/intel_backlight/brightness"

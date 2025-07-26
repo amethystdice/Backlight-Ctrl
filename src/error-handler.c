@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "error-handler.h"
+#include "../lib/error-handler.h"
 
 void exit_with_sys_err(const char* s){
     perror(s);

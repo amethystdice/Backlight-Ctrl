@@ -2,26 +2,40 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
+# Directories
+OBJDIR = obj/
+BINDIR = bin/
+SRCDIR = src/
+
 # Output executable
-TARGET = i-brightness-control
+TARGET = $(BINDIR)i-brightness-control
 
 # Source and object files
-SRCS = main.c error-handler.c
-OBJS = $(SRCS:.c=.o)
+SRCS = $(wildcard $(SRCDIR)*.c)
+OBJS = $(patsubst $(SRCDIR)%.c,$(OBJDIR)%.o,$(SRCS))
 
 # Default target
-all: $(TARGET)
+all: $(OBJDIR) $(TARGET)
 
-# Link object files to create executable
+# Ensure object directory exists
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+	mkdir -p $(BINDIR)
+	mkdir -p $(SRCDIR)
+
+# Link object files into the final executable
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Compile source files to object files
-%.o: %.c
+# Compile .c source files to .o object files
+$(OBJDIR)%.o: $(SRCDIR)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean build artifacts
+# Remove build artifacts
 clean:
 	rm -f $(OBJS) $(TARGET)
+	rmdir  $(OBJDIR)
+	rmdir  $(BINDIR)
 
 .PHONY: all clean
+
