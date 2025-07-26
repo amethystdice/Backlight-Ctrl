@@ -10,7 +10,8 @@ It only works if your device uses the "**intel backlight**".
 
 ## Installation
 
-First you will need to compile this program. To do that you need to install **gcc** and **make**.
+Navigate to the root directory of the program *intel-backlight-control/*.
+First you will need to compile it. To do that you need to install **gcc** and **make**.
 If your distribution uses a package manager different that **apt** like **dnf** , just replace it in the following command:
 
 ```bash
