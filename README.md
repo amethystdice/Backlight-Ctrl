@@ -5,6 +5,7 @@ This tool modifies basic system components and it may cause damage if used impro
 Also the brightness resets after each boot, this is by design and kind of a safety feature
 
 # About
+# Backlight-Ctrl
 This tool will change the brightness of the screen via command line.
 It only works if your device uses the "**intel_backlight** or **amdgpu_bl1**".
 
@@ -49,3 +50,5 @@ make #compile the program
 ```
 ```bash
 ./bin/brightness-control # run the program from the main directory
+
+./bin/backlight-ctrl # run the program from the main directory
