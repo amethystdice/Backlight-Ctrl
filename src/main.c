@@ -78,12 +78,6 @@ char formatChecker(int argc,char** argv){
         default:
             return 'v';
     }
-
-    if(argv[1][0]=='%')
-        return '%';
-    else
-        return 'v';
-
 }
 
 long brightnessSelector(char** argv,char brightness_format,FILE* max_brightness_file){
