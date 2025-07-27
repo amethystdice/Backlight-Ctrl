@@ -2,14 +2,17 @@
 Do not install or try this tool, it's a work in progress and most of all it's my first project so be warned.
 This tool modifies basic system components and it may cause damage if used improprely or even proprely.
 
-# Backlight-Ctrl
+Also the brightness resets after each boot, this is by design and kind of a safety feature
+
+# About
 This tool will change the brightness of the screen via command line.
 It only works if your device uses the "**intel_backlight** or **amdgpu_bl1**".
 
 ## Installation
 
-First you will need to compile this program. To do that you need to install **gcc** and **make**.
-If your distribution uses a package manager different that **apt** like **dnf** , just replace it in the following command:
+Navigate to the root directory of the program *intel-backlight-control/*.
+First you will need to compile it. To do that you need to install **gcc** and **make**.
+If your distribution uses a package manager different that **apt** like **dnf** use it's equivalent command:
 
 ```bash
 sudo apt install gcc make 
@@ -45,4 +48,4 @@ If you wish to use the program without installing it into your system you can ru
 make #compile the program
 ```
 ```bash
-./bin/backlight-ctrl # run the program from the main directory
+./bin/brightness-control # run the program from the main directory
