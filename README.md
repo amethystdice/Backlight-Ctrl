@@ -1,6 +1,5 @@
 # Warning
-Do not install or try this tool, it's a work in progress and most of all it's my first project so be warned.
-This tool modifies basic system components and it may cause damage if used improprely or even proprely.
+this tool is still experimental so be cautious!
 
 # Backlight-Ctrl
 This tool will change the brightness of the screen via command line.
