@@ -18,7 +18,7 @@
 #define AMD 1
 
 
-#define GITHUB_LINK "\033]8;;https://github.com/amethystdice/intel-backlight-control\033\\\033[34mgithub\033[0m\033]8;;\033\\"
+#define GITHUB_LINK "\033]8;;https://github.com/amethystdice/Backlight-Ctrl\033\\\033[34mgithub\033[0m\033]8;;\033\\"
 
 
 int displaySelector(){
@@ -32,10 +32,11 @@ int displaySelector(){
     if(display_controller==-1){
         fprintf(stderr, 
             "It looks like this program doesn't support your laptop!\n"
-            "Make sure that your devices uses `intel backlight'.\n"
+            "Make sure that your devices uses `intel_backlight' or `amdgpu_bl1`.\n"
             "If it does and this message still appears make sure to report this bug on %s\n\n"
-            "path to the intel-backlight directory: %s\n"
-            ,GITHUB_LINK,INTEL_BRIGHTNESS_FILE_PATH);
+            "intel_backlight directory: %s\n"
+            "amdgpu_bl1 directory:      %s\n"
+            ,GITHUB_LINK,INTEL_BRIGHTNESS_FILE_PATH,AMD_BRIGHTNESS_FILE_PATH);
         exit(EXIT_FAILURE);
     }
     return display_controller;
@@ -45,16 +46,16 @@ char argumentFormatChecker(int argc,char** argv){
 
     // check for unsupported syntax
     if(argc>2){
-        if(fprintf(stderr,"brightness-control: Number of arguments unsupported\nTry 'i-brightness-control --help' for more information\n")<0)
+        if(fprintf(stderr,"Backlight-Ctrl: Number of arguments unsupported\nTry 'Backlight-Ctrl --help' for more information\n")<0)
             exit_with_sys_err("fprintf()");
         exit(EXIT_FAILURE);
     }
 
     if((!strncmp(argv[1], "-h", 2)) || (!strncmp(argv[1], "--help", 6))){
         if(printf(
-        "Usage: brightness-control\n"
-        "or   : brightness-control [BRIGHTNESS VALUE]\n"
-        "or   : brightness-control max/min\n"    
+        "Usage: Backlight-Ctrl\n"
+        "or   : Backlight-Ctrl [BRIGHTNESS VALUE]\n"
+        "or   : Backlight-Ctrl max/min\n"    
         )<0)
             exit_with_sys_err("printf()");
         exit(EXIT_SUCCESS);
@@ -181,7 +182,7 @@ int main(int argc,char** argv){
 
     // check if the user has run the program as "sudo"
     if(getuid()!=0)
-        exit_with_err_msg("brightness-control: This tool needs admin privileges\nmake sure to run \"sudo brightness-control\"");
+        exit_with_err_msg("Backlight-Ctrl: This tool needs admin privileges\nmake sure to run \"sudo backlight-ctrl\"");
 
     //check if value is in % or value
 

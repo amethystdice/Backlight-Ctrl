@@ -2,9 +2,9 @@
 Do not install or try this tool, it's a work in progress and most of all it's my first project so be warned.
 This tool modifies basic system components and it may cause damage if used improprely or even proprely.
 
-# Intel-Brightness-Control
+# Backlight-Ctrl
 This tool will change the brightness of the screen via command line.
-It only works if your device uses the "**intel backlight**".
+It only works if your device uses the "**intel_backlight** or **amdgpu_bl1**".
 
 ## Installation
 
@@ -23,10 +23,10 @@ make install # compile and install
 
 You can now run one of the following commands:
 ```bash
-brightness-control      # check the current brightness and it's max and min setting 
-brightness-control 125  # change the brightness to a value
-brightness-control min  #this command will """turn off""" the screen.
-brightness-control max  #this command will make the screen the brightest it can go
+backlight-ctrl      # check the current brightness and it's max and min setting 
+backlight-ctrl 125  # change the brightness to a value
+backlight-ctrl min  #this command will """turn off""" the screen.
+backlight-ctrl max  #this command will make the screen the brightest it can go
 ```
 
 ## How to uninstall
@@ -45,4 +45,4 @@ If you wish to use the program without installing it into your system you can ru
 make #compile the program
 ```
 ```bash
-./bin/brightness-control # run the program from the main directory
+./bin/backlight-ctrl # run the program from the main directory

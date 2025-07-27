@@ -9,7 +9,7 @@ SRCDIR = src/
 INSTALLDIR = /usr/local/bin/
 
 # Output executable
-EXECUTABLE = brightness-control
+EXECUTABLE = backlight-ctrl
 TARGET = $(BINDIR)$(EXECUTABLE)
 
 # Source and object files
