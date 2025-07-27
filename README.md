@@ -28,8 +28,9 @@ You can now run one of the following commands:
 ```bash
 backlight-ctrl      # check the current brightness and it's max and min setting 
 backlight-ctrl 125  # change the brightness to a value
-backlight-ctrl min  #this command will """turn off""" the screen.
-backlight-ctrl max  #this command will make the screen the brightest it can go
+backlight-ctrl %50  # set the brighness with a percentage
+backlight-ctrl min  # this command will """turn off""" the screen.
+backlight-ctrl max  # this command will make the screen the brightest it can go
 ```
 
 ## How to uninstall

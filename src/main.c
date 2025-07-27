@@ -103,17 +103,19 @@ long brightnessSelector(char** argv,char brightness_format,FILE* max_brightness_
     }
 
     if(brightness_format=='v'){ //value
-        current_brightness=atol(argv[1]);
-            if((current_brightness<0) || (current_brightness>max_brightness)){
-                if(fprintf(stderr, "Brightness out of the permitted range (0-%ld)\n",max_brightness)<0)
-                    exit_with_sys_err("fprintf()");
-            }
+	current_brightness=atol(argv[1]);
+        if((current_brightness<0) || (current_brightness>max_brightness)){
+		if(fprintf(stderr, "Brightness out of the permitted range (0-%ld)\n",max_brightness)<0)
+        		exit_with_sys_err("fprintf()");
+        }
         return current_brightness;
     }
 
     if(brightness_format=='%'){
         long percent=atol(argv[1]+1);
-        return current_brightness = (percent * max_brightness) / 100;
+	if( (percent<0) || (percent>100) )
+		exit_with_err_msg("Brightness-Crtl can't make your screen \%%ld bright\n",percent);
+	return current_brightness = (percent * max_brightness) / 100;
     }
     exit_with_err_msg("no format has been chosen, something has gone wrong\n");
     return 0; //just to make the compiler shut up
