@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "../lib/error-handler.h"
+#include "../lib/main.h"
 
 #define BUFFER_SIZE 10
 #define INTEL_BRIGHTNESS_FILE_PATH "/sys/class/backlight/intel_backlight/brightness"
@@ -42,7 +43,7 @@ int displaySelector(){
     return display_controller;
 }
 
-char argumentFormatChecker(int argc,char** argv){
+char formatChecker(int argc,char** argv){
 
     // check for unsupported syntax
     if(argc>2){
@@ -204,7 +205,7 @@ int main(int argc,char** argv){
         noArgumentsCondition(brightness_file,max_brightness_file);
     }else{
         // load the new brighness
-        char brightness_format = argumentFormatChecker(argc, argv);
+        char brightness_format = formatChecker(argc, argv);
         long current_brightness = brightnessSelector(argv,brightness_format,max_brightness_file);
 
         // set new brightness
