@@ -49,6 +49,6 @@ If you wish to use the program without installing it into your system you can ru
 make #compile the program
 ```
 ```bash
-./bin/brightness-control # run the program from the main directory
+./bin/backlight-ctrl # run the program from the main directory
 
 ./bin/backlight-ctrl # run the program from the main directory
