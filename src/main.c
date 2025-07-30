@@ -114,7 +114,7 @@ long brightnessSelector(char** argv,char brightness_format,FILE* max_brightness_
     if(brightness_format=='%'){
         long percent=atol(argv[1]+1);
 	if( (percent<0) || (percent>100) )
-		exit_with_err_msg("Brightness-Crtl can't make your screen \%%ld bright\n",percent);
+		exit_with_err_msg("Brightness-Crtl: percent value not supported\n");
 	return current_brightness = (percent * max_brightness) / 100;
     }
     exit_with_err_msg("no format has been chosen, something has gone wrong\n");
